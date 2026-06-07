@@ -286,3 +286,85 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 document.getElementById('scroll-top').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+
+/* ================================================================
+   11. INTERNSHIP CERTIFICATES — Lightbox
+   ================================================================
+   How it works:
+   • Each .ic-card holds data attributes:
+       data-cert   = relative path to the certificate image
+       data-title  = job title shown in lightbox header
+       data-org    = organisation name shown in lightbox header
+   • Clicking a card opens the lightbox and populates it.
+   • Clicking the backdrop or ✕ closes it.
+   • ESC key also closes it.
+   ================================================================ */
+
+(function initCertLightbox() {
+
+  const lightbox  = document.getElementById('cert-lightbox');
+  const backdrop  = document.getElementById('cert-backdrop');
+  const closeBtn  = document.getElementById('cert-lb-close');
+  const lbTitle   = document.getElementById('cert-lb-title');
+  const lbOrg     = document.getElementById('cert-lb-org');
+  const lbImg     = document.getElementById('cert-lb-img');
+  const lbDl      = document.getElementById('cert-lb-download');
+
+  if (!lightbox) return; // section not present — skip
+
+  /* ── Open ──────────────────────────────────────────────────── */
+  function openLightbox(certSrc, title, org) {
+    lbTitle.textContent = title;
+    lbOrg.textContent   = org;
+    lbImg.src           = certSrc;
+    lbImg.alt           = title + ' — ' + org;
+
+    /* Point the download link at the same image
+       (swap for a PDF path if you have one) */
+    lbDl.href           = certSrc;
+    lbDl.download       = title.replace(/\s+/g, '_') + '_Certificate';
+
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  }
+
+  /* ── Close ─────────────────────────────────────────────────── */
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    /* Small delay so the fade-out plays before clearing src */
+    setTimeout(() => { lbImg.src = ''; }, 350);
+  }
+
+  /* ── Attach click to every certificate card ─────────────────── */
+  document.querySelectorAll('.ic-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const certSrc = card.getAttribute('data-cert')  || '';
+      const title   = card.getAttribute('data-title') || 'Certificate';
+      const org     = card.getAttribute('data-org')   || '';
+      openLightbox(certSrc, title, org);
+    });
+
+    /* Keyboard accessibility — Enter / Space also opens */
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+
+  /* ── Close triggers ─────────────────────────────────────────── */
+  closeBtn.addEventListener('click', closeLightbox);
+  backdrop.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
+      closeLightbox();
+    }
+  });
+
+})();

@@ -1178,3 +1178,241 @@ footer {
   .contact-form     { padding: 24px; }
   .about-card       { padding: 24px; }
 }
+
+
+/* ================================================================
+   INTERNSHIP CERTIFICATES SECTION
+   ================================================================ */
+ 
+/* ── Grid ─────────────────────────────────────────────────────── */
+.ic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+}
+ 
+/* ── Card ─────────────────────────────────────────────────────── */
+.ic-card {
+  overflow: hidden;
+  transition: all var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+.ic-card:hover {
+  border-color: rgba(79, 139, 255, 0.45);
+  transform: translateY(-6px);
+  box-shadow: var(--glow);
+}
+ 
+/* ── Image preview area ───────────────────────────────────────── */
+.ic-preview {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(79,139,255,0.08), rgba(162,89,255,0.08));
+  border-bottom: 1px solid var(--border);
+}
+ 
+.ic-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.5s var(--ease);
+}
+.ic-card:hover .ic-img {
+  transform: scale(1.05);
+}
+ 
+/* Placeholder shown when image fails to load */
+.ic-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.ic-placeholder-icon { font-size: 2.5rem; }
+ 
+/* Hover overlay with "View" CTA */
+.ic-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 11, 24, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--transition);
+  backdrop-filter: blur(4px);
+}
+.ic-card:hover .ic-overlay { opacity: 1; }
+ 
+.ic-view-btn {
+  padding: 10px 22px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: var(--glow);
+  transform: translateY(8px);
+  transition: transform var(--transition);
+}
+.ic-card:hover .ic-view-btn { transform: translateY(0); }
+ 
+/* ── Card body ────────────────────────────────────────────────── */
+.ic-body {
+  padding: 22px 24px;
+}
+ 
+.ic-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.ic-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: rgba(79,139,255,0.4);
+  letter-spacing: 0.1em;
+}
+ 
+.ic-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--white);
+}
+.ic-org {
+  font-size: 0.82rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.ic-year {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.ic-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+ 
+
+ 
+/* ================================================================
+   CERTIFICATE LIGHTBOX
+   ================================================================ */
+.cert-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* hidden by default — JS toggles .open */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+.cert-lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+ 
+.cert-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 11, 24, 0.88);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+}
+ 
+.cert-lightbox-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 32px;
+  border-radius: 20px;
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.35s var(--ease);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+.cert-lightbox.open .cert-lightbox-panel {
+  transform: translateY(0) scale(1);
+}
+ 
+/* Close button */
+.cert-lb-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.cert-lb-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(90deg);
+}
+ 
+/* Header */
+.cert-lb-header { margin-bottom: 20px; padding-right: 40px; }
+.cert-lb-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.cert-lb-org { font-size: 0.875rem; color: var(--accent); }
+ 
+/* Image */
+.cert-lb-body {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  margin-bottom: 24px;
+}
+.cert-lb-image {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+ 
+/* Footer */
+.cert-lb-footer { display: flex; justify-content: center; }
+ 
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .ic-grid { grid-template-columns: 1fr; }
+  .cert-lightbox-panel { padding: 20px; }
+}
