@@ -239,6 +239,24 @@ body::before {
   background-clip: text;
 }
 
+.nav-logo-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  /* border: 2px solid transparent;
+  background: linear-gradient(var(--bg), var(--bg)) padding-box,
+              linear-gradient(135deg, var(--accent), var(--teal)) border-box; */
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: block;
+}
+
+.nav-logo:hover .nav-logo-img {
+  transform: scale(1.08);
+  box-shadow: 0 0 18px rgba(79, 139, 255, 0.5);
+}
+
 .nav-links {
   display: flex;
   gap: 32px;
