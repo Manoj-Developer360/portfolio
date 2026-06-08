@@ -289,16 +289,13 @@ document.getElementById('scroll-top').addEventListener('click', () => {
 
 
 /* ================================================================
-   11. INTERNSHIP CERTIFICATES — Lightbox
+   11. CERTIFICATES LIGHTBOX — handles .cert-card + .ic-card
    ================================================================
-   How it works:
-   • Each .ic-card holds data attributes:
-       data-cert   = relative path to the certificate image
-       data-title  = job title shown in lightbox header
-       data-org    = organisation name shown in lightbox header
-   • Clicking a card opens the lightbox and populates it.
-   • Clicking the backdrop or ✕ closes it.
-   • ESC key also closes it.
+   • .cert-card  = Achievements & Awards section
+                   Collects ALL <img class="cert-card-img"> inside the card.
+                   If 2+ images → prev/next navigation shown in lightbox.
+   • .ic-card    = Internship Certificates section
+                   Single image from data-cert attribute.
    ================================================================ */
 
 (function initCertLightbox() {
@@ -310,61 +307,126 @@ document.getElementById('scroll-top').addEventListener('click', () => {
   const lbOrg     = document.getElementById('cert-lb-org');
   const lbImg     = document.getElementById('cert-lb-img');
   const lbDl      = document.getElementById('cert-lb-download');
+  const lbNav     = document.getElementById('cert-lb-nav');
+  const lbDots    = document.getElementById('cert-lb-dots');
+  const lbPrev    = document.getElementById('cert-lb-prev');
+  const lbNext    = document.getElementById('cert-lb-next');
+  const lbCounter = document.getElementById('cert-lb-counter');
 
-  if (!lightbox) return; // section not present — skip
+  if (!lightbox) return;
 
-  /* ── Open ──────────────────────────────────────────────────── */
-  function openLightbox(certSrc, title, org) {
+  let images  = [];   // array of src strings for the current open cert
+  let current = 0;    // index of currently shown image
+
+  /* ── Show a specific image by index ───────────────────────── */
+  function showImage(idx) {
+    current = idx;
+    lbImg.src   = images[idx];
+    lbDl.href   = images[idx];
+
+    // counter
+    lbCounter.textContent = (idx + 1) + ' / ' + images.length;
+
+    // buttons
+    lbPrev.disabled = idx === 0;
+    lbNext.disabled = idx === images.length - 1;
+
+    // dots
+    lbDots.querySelectorAll('.cert-lb-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === idx);
+    });
+  }
+
+  /* ── Open lightbox ─────────────────────────────────────────── */
+  function openLightbox(srcs, title, org) {
+    images  = srcs;
+    current = 0;
+
     lbTitle.textContent = title;
     lbOrg.textContent   = org;
-    lbImg.src           = certSrc;
-    lbImg.alt           = title + ' — ' + org;
-
-    /* Point the download link at the same image
-       (swap for a PDF path if you have one) */
-    lbDl.href           = certSrc;
     lbDl.download       = title.replace(/\s+/g, '_') + '_Certificate';
 
+    // build dots
+    lbDots.innerHTML = '';
+    if (images.length > 1) {
+      images.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'cert-lb-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => showImage(i));
+        lbDots.appendChild(dot);
+      });
+      lbDots.style.display = 'flex';
+      lbNav.style.display  = 'flex';
+    } else {
+      lbDots.style.display = 'none';
+      lbNav.style.display  = 'none';
+    }
+
+    showImage(0);
     lightbox.classList.add('open');
-    document.body.style.overflow = 'hidden'; // prevent background scroll
+    document.body.style.overflow = 'hidden';
   }
 
   /* ── Close ─────────────────────────────────────────────────── */
   function closeLightbox() {
     lightbox.classList.remove('open');
     document.body.style.overflow = '';
-    /* Small delay so the fade-out plays before clearing src */
-    setTimeout(() => { lbImg.src = ''; }, 350);
+    setTimeout(() => { lbImg.src = ''; images = []; }, 350);
   }
 
-  /* ── Attach click to every certificate card ─────────────────── */
-  document.querySelectorAll('.ic-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const certSrc = card.getAttribute('data-cert')  || '';
-      const title   = card.getAttribute('data-title') || 'Certificate';
-      const org     = card.getAttribute('data-org')   || '';
-      openLightbox(certSrc, title, org);
-    });
+  /* ── Nav buttons ───────────────────────────────────────────── */
+  lbPrev.addEventListener('click', () => { if (current > 0) showImage(current - 1); });
+  lbNext.addEventListener('click', () => { if (current < images.length - 1) showImage(current + 1); });
 
-    /* Keyboard accessibility — Enter / Space also opens */
+  /* ── Keyboard arrow navigation ─────────────────────────────── */
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  { if (current > 0) showImage(current - 1); }
+    if (e.key === 'ArrowRight') { if (current < images.length - 1) showImage(current + 1); }
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  /* ── .cert-card — collect ALL .cert-card-img srcs ──────────── */
+  document.querySelectorAll('.cert-card').forEach(card => {
+    // inject count badge if multiple images
+    const imgs = Array.from(card.querySelectorAll('.cert-card-img'));
+    if (imgs.length > 1) {
+      const badge = document.createElement('span');
+      badge.className   = 'cert-img-count';
+      badge.textContent = '📷 ' + imgs.length;
+      card.querySelector('.cert-card-preview').appendChild(badge);
+    }
+
     card.setAttribute('tabindex', '0');
     card.setAttribute('role', 'button');
+    card.addEventListener('click', () => {
+      const srcs  = imgs.map(img => img.src).filter(Boolean);
+      const title = card.getAttribute('data-title') || 'Certificate';
+      const org   = card.getAttribute('data-org')   || '';
+      if (srcs.length) openLightbox(srcs, title, org);
+    });
     card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.click();
-      }
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
     });
   });
 
-  /* ── Close triggers ─────────────────────────────────────────── */
+  /* ── .ic-card — single image from data-cert ────────────────── */
+  document.querySelectorAll('.ic-card').forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.addEventListener('click', () => {
+      const src   = card.getAttribute('data-cert')  || '';
+      const title = card.getAttribute('data-title') || 'Certificate';
+      const org   = card.getAttribute('data-org')   || '';
+      if (src) openLightbox([src], title, org);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+    });
+  });
+
+  /* ── Close triggers ────────────────────────────────────────── */
   closeBtn.addEventListener('click', closeLightbox);
   backdrop.addEventListener('click', closeLightbox);
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && lightbox.classList.contains('open')) {
-      closeLightbox();
-    }
-  });
 
 })();

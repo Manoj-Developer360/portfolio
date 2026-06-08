@@ -614,6 +614,12 @@
       <div class="cert-lb-body">
         <img id="cert-lb-img" src="" alt="Certificate" class="cert-lb-image" />
       </div>
+      <div class="cert-lb-dots" id="cert-lb-dots"></div>
+      <div class="cert-lb-nav" id="cert-lb-nav">
+        <button class="cert-lb-nav-btn" id="cert-lb-prev" aria-label="Previous">&#8592;</button>
+        <span class="cert-lb-counter" id="cert-lb-counter">1 / 1</span>
+        <button class="cert-lb-nav-btn" id="cert-lb-next" aria-label="Next">&#8594;</button>
+      </div>
       <div class="cert-lb-footer">
         <!-- ✏ You can hook this to actual PDF files per certificate -->
         <a id="cert-lb-download" href="#" download class="btn btn-primary">⬇ Download Certificate</a>
@@ -649,7 +655,7 @@
           <div class="proj-footer">
             <span class="proj-type">Full Stack Project</span>
             <!-- ✏ Replace # with your GitHub repo link -->
-            <a href="https://github.com/Manoj-Developer360" target="_blank" class="proj-link">GitHub ↗</a>
+            <a href="https://github.com/dhiyanesh-cyber/feedback_system.git" target="_blank" class="proj-link">GitHub ↗</a>
           </div>
         </div>
 
@@ -741,61 +747,100 @@
       </div>
 
       <div class="cert-grid">
+
         <div class="glass cert-card reveal d1"
-             data-cert="certificates/hackathon.jpg"
              data-title="Smart India Internal Hackathon"
              data-org="Government of India Initiative">
-          <div class="cert-icon">🛡</div>
-          <div>
-            <div class="cert-name">Smart India Internal Hackathon</div>
-            <div class="cert-issuer">Government of India Initiative</div>
+          <div class="cert-card-preview">
+            <img class="cert-card-img" src="certificates/hackathon.jpg" alt="Smart India Internal Hackathon Certificate" />
+            <div class="cert-card-overlay">
+              <span class="cert-overlay-view">🔍 View Certificate</span>
+            </div>
           </div>
-          <span class="cert-view-hint">click to view ↗</span>
+          <div class="cert-card-body">
+            <div class="cert-icon">🛡</div>
+            <div>
+              <div class="cert-name">Smart India Internal Hackathon</div>
+              <div class="cert-issuer">Government of India Initiative</div>
+            </div>
+          </div>
         </div>
+
         <div class="glass cert-card reveal d2"
-             data-cert="certificates/web-tech.jpg"
              data-title="Web Technology Certification"
              data-org="Silicon Software Services">
-          <div class="cert-icon">🌐</div>
-          <div>
-            <div class="cert-name">Web Technology Certification</div>
-            <div class="cert-issuer">Silicon Software Services</div>
+          <div class="cert-card-preview">
+            <img class="cert-card-img" src="certificates/web.jpg" alt="Web Technology Certification Certificate" />
+            <div class="cert-card-overlay">
+              <span class="cert-overlay-view">🔍 View Certificate</span>
+            </div>
           </div>
-          <span class="cert-view-hint">click to view ↗</span>
+          <div class="cert-card-body">
+            <div class="cert-icon">🌐</div>
+            <div>
+              <div class="cert-name">Web Technology Certification</div>
+              <div class="cert-issuer">Silicon Software Services</div>
+            </div>
+          </div>
         </div>
+
         <div class="glass cert-card reveal d3"
-             data-cert="certificates/symposium.jpg"
              data-title="National Level Symposium"
              data-org="Participant">
-          <div class="cert-icon">🎤</div>
-          <div>
-            <div class="cert-name">National Level Symposium</div>
-            <div class="cert-issuer">Participant</div>
+          <div class="cert-card-preview">
+            <img class="cert-card-img" src="certificates/symposium.jpg" alt="National Level Symposium Certificate" />
+            <div class="cert-card-overlay">
+              <span class="cert-overlay-view">🔍 View Certificate</span>
+            </div>
           </div>
-          <span class="cert-view-hint">click to view ↗</span>
+          <div class="cert-card-body">
+            <div class="cert-icon">🎤</div>
+            <div>
+              <div class="cert-name">National Level Symposium</div>
+              <div class="cert-issuer">Participant</div>
+            </div>
+          </div>
         </div>
+
         <div class="glass cert-card reveal d1"
-             data-cert="certificates/silambam.jpg"
              data-title="National-Level Silambam"
-             data-org="State & National Championships">
-          <div class="cert-icon">🥋</div>
-          <div>
-            <div class="cert-name">National-Level Silambam</div>
-            <div class="cert-issuer">State &amp; National Championships</div>
+             data-org="State &amp; National Championships">
+          <div class="cert-card-preview">
+            <img class="cert-card-img" src="certificates/silambam1.jpg" alt="National-Level Silambam Certificate" />
+            <img class="cert-card-img" src="certificates/silambam2.jpg" alt="National-Level Silambam Certificate" />
+            <img class="cert-card-img" src="certificates/silambam3.jpg" alt="National-Level Silambam Certificate" />
+            <img class="cert-card-img" src="certificates/silambam4.jpg" alt="National-Level Silambam Certificate" />
+            <div class="cert-card-overlay">
+              <span class="cert-overlay-view">🔍 View Certificate</span>
+            </div>
           </div>
-          <span class="cert-view-hint">click to view ↗</span>
+          <div class="cert-card-body">
+            <div class="cert-icon">🥋</div>
+            <div>
+              <div class="cert-name">National-Level Silambam</div>
+              <div class="cert-issuer">State &amp; National Championships</div>
+            </div>
+          </div>
         </div>
+
         <div class="glass cert-card reveal d2"
-             data-cert="certificates/president.jpg"
              data-title="President – CSE Department"
-             data-org="SSM Institute of Engineering & Technology">
-          <div class="cert-icon">👑</div>
-          <div>
-            <div class="cert-name">President – CSE Department</div>
-            <div class="cert-issuer">SSM Institute of Engineering &amp; Technology</div>
+             data-org="SSM Institute of Engineering &amp; Technology">
+          <div class="cert-card-preview">
+            <img class="cert-card-img" src="certificates/president.jpg" alt="President CSE Department Certificate" />
+            <div class="cert-card-overlay">
+              <span class="cert-overlay-view">🔍 View Certificate</span>
+            </div>
           </div>
-          <span class="cert-view-hint">click to view ↗</span>
+          <div class="cert-card-body">
+            <div class="cert-icon">👑</div>
+            <div>
+              <div class="cert-name">President – CSE Department</div>
+              <div class="cert-issuer">SSM Institute of Engineering &amp; Technology</div>
+            </div>
+          </div>
         </div>
+
       </div>
 
     </div>
