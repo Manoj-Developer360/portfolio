@@ -442,8 +442,8 @@ body::before {
 }
 
 .avatar-ring {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   display: flex;
@@ -452,29 +452,51 @@ body::before {
   position: relative;
   box-shadow: var(--glow);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
-/* Image inside circle */
+/* Image inside circle — fills the ring completely */
 .avatar-ring img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   border-radius: 50%;
   position: relative;
   z-index: 1;
+  display: block;
 }
 
-/* Animated ring */
+/* Animated spinning ring border */
 .avatar-ring::before {
   content: '';
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  background: conic-gradient(var(--accent), var(--teal), var(--accent2), var(--accent));
   z-index: 0;
   animation: spin 4s linear infinite;
 }
+/* White gap between photo and spinning border */
+.avatar-ring::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: var(--bg);
+  z-index: 0;
+}
+.avatar-ring img { z-index: 2; }
+
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* Mobile: slightly smaller avatar */
+@media (max-width: 900px) {
+  .avatar-ring {
+    width: 110px;
+    height: 110px;
+  }
+}
 
 .card-name {
   font-family: 'Syne', sans-serif;
@@ -1162,7 +1184,7 @@ footer {
   .hero-desc          { margin: 0 auto 36px; }
   .hero-btns          { justify-content: center; }
   .hero-stats         { justify-content: center; }
-  .hero-visual        { display: none; }
+  /* hero-visual: DO NOT hide — kept visible on mobile */
   .about-grid         { grid-template-columns: 1fr; }
   .contact-wrapper    { grid-template-columns: 1fr; }
   .form-row           { grid-template-columns: 1fr; }
@@ -1415,4 +1437,69 @@ footer {
 @media (max-width: 640px) {
   .ic-grid { grid-template-columns: 1fr; }
   .cert-lightbox-panel { padding: 20px; }
+}
+/* ================================================================
+   UPDATES — Nav logo / Mobile hero / Cert cards clickable
+   ================================================================ */
+
+/* ── Nav logo SVG sizing ──────────────────────────────────────── */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+.nav-logo svg {
+  display: block;
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+              filter   0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.nav-logo:hover svg {
+  transform: rotate(10deg) scale(1.08);
+  filter: drop-shadow(0 0 10px rgba(79,139,255,0.6));
+}
+
+/* ── Hero card visible on mobile ──────────────────────────────── */
+@media (max-width: 900px) {
+  /* override the previous display:none */
+  .hero-visual-mobile {
+    display: flex !important;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .hero-visual-mobile .hero-card-3d {
+    width: 300px;
+    height: 400px;
+  }
+  /* card-face padding tighter on mobile */
+  .hero-visual-mobile .card-face {
+    gap: 10px;
+    padding: 24px 20px;
+  }
+}
+
+/* ── Achievements cert-card — clickable style ─────────────────── */
+.cert-card[data-cert] {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.cert-card[data-cert]:hover {
+  border-color: rgba(79,139,255,0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(79,139,255,0.25);
+}
+
+/* Small "click to view" hint label */
+.cert-view-hint {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-size: 0.68rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  letter-spacing: 0.04em;
+}
+.cert-card[data-cert]:hover .cert-view-hint {
+  opacity: 1;
 }

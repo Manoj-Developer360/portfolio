@@ -31,7 +31,34 @@
     <div class="container">
       <div class="nav-inner">
 
-        <a href="#hero" class="nav-logo">MK<span class="dot-teal">.</span></a>
+        <a href="#hero" class="nav-logo" aria-label="Manoj Kumar V - Home">
+          <svg width="44" height="44" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="nlg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4f8bff"/>
+                <stop offset="100%" stop-color="#00d4c8"/>
+              </linearGradient>
+            </defs>
+            <!-- Dark bg circle -->
+            <circle cx="100" cy="100" r="98" fill="rgba(5,11,24,0.6)" stroke="url(#nlg)" stroke-width="2"/>
+            <!-- Outer hex -->
+            <polygon points="100,22 163,60 163,136 100,174 37,136 37,60"
+                     fill="rgba(79,139,255,0.08)" stroke="url(#nlg)" stroke-width="2.5"/>
+            <!-- Inner hex -->
+            <polygon points="100,46 146,72 146,124 100,150 54,124 54,72"
+                     fill="none" stroke="url(#nlg)" stroke-width="1.2" opacity="0.4"/>
+            <!-- Diagonal slash -->
+            <line x1="64" y1="148" x2="136" y2="52" stroke="url(#nlg)" stroke-width="2" opacity="0.25"/>
+            <!-- M letter -->
+            <text x="76" y="126" font-family="'Syne','Arial Black',sans-serif"
+                  font-weight="900" font-size="64" fill="url(#nlg)" text-anchor="middle">M</text>
+            <!-- K letter -->
+            <text x="126" y="126" font-family="'Syne','Arial Black',sans-serif"
+                  font-weight="900" font-size="64" fill="url(#nlg)" text-anchor="middle">K</text>
+            <!-- Teal dot -->
+            <circle cx="100" cy="96" r="4.5" fill="#00d4c8"/>
+          </svg>
+        </a>
 
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
@@ -111,7 +138,7 @@
         </div>
 
         <!-- Right visual card -->
-        <div class="hero-visual">
+        <div class="hero-visual hero-visual-mobile">
           <div class="hero-card-3d">
             <div class="card-face glass">
               <div class="avatar-ring">
@@ -622,7 +649,7 @@
           <div class="proj-footer">
             <span class="proj-type">Full Stack Project</span>
             <!-- ✏ Replace # with your GitHub repo link -->
-            <a href="#" target="_blank" class="proj-link">GitHub ↗</a>
+            <a href="https://github.com/Manoj-Developer360" target="_blank" class="proj-link">GitHub ↗</a>
           </div>
         </div>
 
@@ -638,7 +665,7 @@
           </div>
           <div class="proj-footer">
             <span class="proj-type">Data Analytics</span>
-            <a href="#" target="_blank" class="proj-link">GitHub ↗</a>
+            <a href="https://github.com/Manoj-Developer360" target="_blank" class="proj-link">GitHub ↗</a>
           </div>
         </div>
 
@@ -654,15 +681,14 @@
           </div>
           <div class="proj-footer">
             <span class="proj-type">Frontend Project</span>
-            <a href="#" target="_blank" class="proj-link">GitHub ↗</a>
+            <a href="https://github.com/Manoj-Developer360" target="_blank" class="proj-link">GitHub ↗</a>
           </div>
         </div>
 
       </div>
 
       <div class="projects-cta reveal">
-        <!-- ✏ Replace # with your GitHub profile URL -->
-        <a href="#" target="_blank" class="btn btn-outline">View All Projects on GitHub ↗</a>
+        <a href="https://github.com/Manoj-Developer360" target="_blank" class="btn btn-outline">View All Projects on GitHub ↗</a>
       </div>
 
     </div>
@@ -715,40 +741,60 @@
       </div>
 
       <div class="cert-grid">
-        <div class="glass cert-card reveal d1">
+        <div class="glass cert-card reveal d1"
+             data-cert="certificates/hackathon.jpg"
+             data-title="Smart India Internal Hackathon"
+             data-org="Government of India Initiative">
           <div class="cert-icon">🛡</div>
           <div>
             <div class="cert-name">Smart India Internal Hackathon</div>
             <div class="cert-issuer">Government of India Initiative</div>
           </div>
+          <span class="cert-view-hint">click to view ↗</span>
         </div>
-        <div class="glass cert-card reveal d2">
+        <div class="glass cert-card reveal d2"
+             data-cert="certificates/web-tech.jpg"
+             data-title="Web Technology Certification"
+             data-org="Silicon Software Services">
           <div class="cert-icon">🌐</div>
           <div>
             <div class="cert-name">Web Technology Certification</div>
             <div class="cert-issuer">Silicon Software Services</div>
           </div>
+          <span class="cert-view-hint">click to view ↗</span>
         </div>
-        <div class="glass cert-card reveal d3">
+        <div class="glass cert-card reveal d3"
+             data-cert="certificates/symposium.jpg"
+             data-title="National Level Symposium"
+             data-org="Participant">
           <div class="cert-icon">🎤</div>
           <div>
             <div class="cert-name">National Level Symposium</div>
             <div class="cert-issuer">Participant</div>
           </div>
+          <span class="cert-view-hint">click to view ↗</span>
         </div>
-        <div class="glass cert-card reveal d1">
+        <div class="glass cert-card reveal d1"
+             data-cert="certificates/silambam.jpg"
+             data-title="National-Level Silambam"
+             data-org="State & National Championships">
           <div class="cert-icon">🥋</div>
           <div>
             <div class="cert-name">National-Level Silambam</div>
             <div class="cert-issuer">State &amp; National Championships</div>
           </div>
+          <span class="cert-view-hint">click to view ↗</span>
         </div>
-        <div class="glass cert-card reveal d2">
+        <div class="glass cert-card reveal d2"
+             data-cert="certificates/president.jpg"
+             data-title="President – CSE Department"
+             data-org="SSM Institute of Engineering & Technology">
           <div class="cert-icon">👑</div>
           <div>
             <div class="cert-name">President – CSE Department</div>
             <div class="cert-issuer">SSM Institute of Engineering &amp; Technology</div>
           </div>
+          <span class="cert-view-hint">click to view ↗</span>
         </div>
       </div>
 
