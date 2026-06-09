@@ -875,40 +875,76 @@
         <div class="glass contact-form reveal-right">
           <div class="form-heading">Send a Message</div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="from_name">Your Name</label>
-              <input type="text" id="from_name" class="form-control" placeholder="Manoj Kumar" />
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="from_name">Your Name <span class="required-star">*</span></label>
+                <input
+                  type="text"
+                  id="from_name"
+                  name="from_name"
+                  class="form-control"
+                  placeholder="Manoj Kumar"
+                  autocomplete="name"
+                  required
+                />
+                <span class="field-error" id="err-name"></span>
+              </div>
+              <div class="form-group">
+                <label for="from_email">Email Address <span class="required-star">*</span></label>
+                <input
+                  type="email"
+                  id="from_email"
+                  name="from_email"
+                  class="form-control"
+                  placeholder="manoj@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <span class="field-error" id="err-email"></span>
+              </div>
             </div>
+
             <div class="form-group">
-              <label for="from_email">Email Address</label>
-              <input type="email" id="from_email" class="form-control" placeholder="manoj@example.com" />
+              <label for="subject">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="form-control"
+                placeholder="Job opportunity / Freelance work..."
+                maxlength="100"
+              />
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" class="form-control" placeholder="Job opportunity / Freelance work..." />
-          </div>
+            <div class="form-group">
+              <label for="message">
+                Message <span class="required-star">*</span>
+                <span class="char-count" id="char-count">0 / 1000</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-control"
+                placeholder="Write your message here..."
+                maxlength="1000"
+                required
+              ></textarea>
+              <span class="field-error" id="err-message"></span>
+            </div>
 
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" class="form-control" placeholder="Write your message here..."></textarea>
-          </div>
-
-          <button id="send-btn" class="btn btn-primary full-w send-btn" onclick="sendEmail()">
-            Send Message 🚀
-          </button>
+            <button id="send-btn" type="submit" class="btn btn-primary full-w send-btn">
+              <span class="btn-label">Send Message 🚀</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </form>
 
           <!-- Status messages -->
-          <p id="form-success" class="form-msg success" style="display:none">
+          <p id="form-success" class="form-msg success" role="status" aria-live="polite" style="display:none">
             ✅ Message sent successfully! I'll get back to you soon.
           </p>
-          <p id="form-error" class="form-msg error" style="display:none">
+          <p id="form-error" class="form-msg error" role="alert" aria-live="assertive" style="display:none">
             ❌ Oops! Something went wrong. Please try again or email me directly.
-          </p>
-          <p id="form-loading" class="form-msg loading" style="display:none">
-            ⏳ Sending...
           </p>
         </div>
 

@@ -1,76 +1,107 @@
 /* ================================================================
    main.js — Manoj Kumar V Portfolio
    ================================================================
-   SETUP CHECKLIST (EmailJS):
-   1. Go to https://emailjs.com and sign up (free)
-   2. Add Email Service  → connect your Gmail → copy SERVICE ID
-   3. Create Email Template → copy TEMPLATE ID
-      Template variables to use inside EmailJS dashboard:
+   EMAILJS SETUP (one-time):
+   1. Sign up at https://emailjs.com (free tier: 200 emails/month)
+   2. Email Services  → Add Service → connect Gmail → copy SERVICE ID
+   3. Email Templates → Create Template → use these variables:
         {{from_name}}   — sender's name
-        {{from_email}}  — sender's email
+        {{from_email}}  — sender's email (set as Reply-To)
         {{subject}}     — subject line
         {{message}}     — message body
-   4. Go to Account → copy PUBLIC KEY
-   5. Paste all three values in the CONFIG block below
+   4. Account → General → copy PUBLIC KEY
+   5. Paste the three values below — that's it.
    ================================================================ */
 
-/* ── EMAILJS CONFIG — fill these in ─────────────────────────── */
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ✏ from emailjs.com → Account
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ✏ from emailjs.com → Email Services
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ✏ from emailjs.com → Email Templates
-/* ─────────────────────────────────────────────────────────────── */
+/* ── EMAILJS CONFIG ─────────────────────────────────────────────
+   Replace the placeholder strings with your real credentials.   */
+const EMAILJS_PUBLIC_KEY  = 'FXO6Ymb9BeCzEa2Pi';   // Account → General
+const EMAILJS_SERVICE_ID  = 'service_4fttvbo';   // Email Services
+const EMAILJS_TEMPLATE_ID = 'template_c9kno22';  // Email Templates
+/* ────────────────────────────────────────────────────────────── */
 
 
 /* ================================================================
-   1. EmailJS — initialise on page load
+   1. EmailJS — initialise once the DOM is ready
 ================================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   emailjs.init(EMAILJS_PUBLIC_KEY);
+  initContactForm();
 });
 
 
 /* ================================================================
-   2. Send Email — called by the Send button in index.html
+   2. Contact Form — wires up submission, validation, and status
+================================================================ */
+function initContactForm() {
+  const form    = document.getElementById('contact-form');
+  const textarea = document.getElementById('message');
+  const charCount = document.getElementById('char-count');
+
+  if (!form) return;
+
+  /* ── Live character counter for the message textarea ──────── */
+  if (textarea && charCount) {
+    textarea.addEventListener('input', () => {
+      const len = textarea.value.length;
+      charCount.textContent = `${len} / 1000`;
+      charCount.classList.toggle('char-near-limit', len >= 900);
+    });
+  }
+
+  /* ── Clear field-level error styling on re-type ───────────── */
+  form.querySelectorAll('.form-control').forEach(input => {
+    input.addEventListener('input', () => clearFieldError(input));
+  });
+
+  /* ── Form submit ──────────────────────────────────────────── */
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    sendEmail();
+  });
+}
+
+
+/* ================================================================
+   3. sendEmail — validates, calls EmailJS, handles response
 ================================================================ */
 function sendEmail() {
-  /* -- grab field values -- */
+  /* -- Collect values -- */
   const fromName  = document.getElementById('from_name').value.trim();
   const fromEmail = document.getElementById('from_email').value.trim();
   const subject   = document.getElementById('subject').value.trim();
   const message   = document.getElementById('message').value.trim();
 
-  /* -- UI elements -- */
+  /* -- UI refs -- */
   const btn     = document.getElementById('send-btn');
   const success = document.getElementById('form-success');
   const error   = document.getElementById('form-error');
-  const loading = document.getElementById('form-loading');
 
-  /* -- hide all status messages first -- */
-  hideAllMessages(success, error, loading);
+  /* -- Reset all status messages -- */
+  hideStatusMessages(success, error);
 
-  /* ── Validation ─────────────────────────────────────────────── */
+  /* ── Client-side validation ─────────────────────────────── */
+  let isValid = true;
+
   if (!fromName) {
-    showError(error, '❌ Please enter your name.');
-    document.getElementById('from_name').focus();
-    return;
+    setFieldError('from_name', 'err-name', 'Please enter your name.');
+    isValid = false;
   }
   if (!isValidEmail(fromEmail)) {
-    showError(error, '❌ Please enter a valid email address.');
-    document.getElementById('from_email').focus();
-    return;
+    setFieldError('from_email', 'err-email', 'Please enter a valid email address.');
+    isValid = false;
   }
   if (!message) {
-    showError(error, '❌ Please enter a message.');
-    document.getElementById('message').focus();
-    return;
+    setFieldError('message', 'err-message', 'Please write a message before sending.');
+    isValid = false;
   }
 
-  /* ── Loading state ──────────────────────────────────────────── */
-  btn.disabled      = true;
-  btn.textContent   = '⏳ Sending...';
-  loading.style.display = 'block';
+  if (!isValid) return;
 
-  /* ── EmailJS send ───────────────────────────────────────────── */
+  /* ── Loading state ──────────────────────────────────────── */
+  setButtonLoading(btn, true);
+
+  /* ── Send via EmailJS ───────────────────────────────────── */
   emailjs.send(
     EMAILJS_SERVICE_ID,
     EMAILJS_TEMPLATE_ID,
@@ -83,51 +114,80 @@ function sendEmail() {
   )
   .then(() => {
     /* SUCCESS */
-    loading.style.display  = 'none';
-    success.style.display  = 'block';
-    success.textContent    = '✅ Message sent! I\'ll get back to you soon.';
-    btn.textContent        = '✅ Sent!';
+    setButtonLoading(btn, false);
+    btn.textContent = '✅ Sent!';
 
-    /* reset form after 3 s */
+    success.textContent  = "✅ Message sent successfully! I'll get back to you soon.";
+    success.style.display = 'block';
+
+    /* Reset form and button after 4 s */
     setTimeout(() => {
       resetForm();
-      btn.disabled    = false;
       btn.textContent = 'Send Message 🚀';
       success.style.display = 'none';
-    }, 3000);
+    }, 4000);
   })
   .catch((err) => {
     /* ERROR */
     console.error('EmailJS error:', err);
-    loading.style.display = 'none';
-    showError(error, '❌ Failed to send. Please email me directly at kumarvmanoj329@gmail.com');
-    btn.disabled    = false;
-    btn.textContent = 'Send Message 🚀';
+    setButtonLoading(btn, false);
+
+    error.textContent   = '❌ Sending failed. Please email me directly at kumarvmanoj329@gmail.com';
+    error.style.display = 'block';
   });
 }
 
-/* ── helpers ──────────────────────────────────────────────────── */
+
+/* ================================================================
+   Helpers
+================================================================ */
+
+/** Basic RFC-5322-lite email check */
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function hideAllMessages(success, error, loading) {
-  success.style.display = 'none';
-  error.style.display   = 'none';
-  loading.style.display = 'none';
+/** Mark a field invalid and show its inline error */
+function setFieldError(fieldId, errId, msg) {
+  const field = document.getElementById(fieldId);
+  const errEl = document.getElementById(errId);
+  if (field) field.classList.add('invalid');
+  if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+  if (field) field.focus();
 }
 
-function showError(el, msg) {
-  el.textContent    = msg;
-  el.style.display  = 'block';
+/** Remove invalid state from a single field */
+function clearFieldError(inputEl) {
+  inputEl.classList.remove('invalid');
+  const errId = 'err-' + { from_name: 'name', from_email: 'email', message: 'message' }[inputEl.id];
+  const errEl = document.getElementById(errId);
+  if (errEl) { errEl.textContent = ''; errEl.style.display = 'none'; }
 }
 
+/** Hide both status banners */
+function hideStatusMessages(...els) {
+  els.forEach(el => { if (el) el.style.display = 'none'; });
+}
+
+/** Toggle button loading state */
+function setButtonLoading(btn, isLoading) {
+  btn.disabled = isLoading;
+  btn.classList.toggle('loading', isLoading);
+  const label   = btn.querySelector('.btn-label');
+  if (label) label.textContent = isLoading ? 'Sending…' : 'Send Message 🚀';
+}
+
+/** Clear all form fields and error states */
 function resetForm() {
-  document.getElementById('from_name').value  = '';
-  document.getElementById('from_email').value = '';
-  document.getElementById('subject').value    = '';
-  document.getElementById('message').value    = '';
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+  form.reset();
+  form.querySelectorAll('.form-control').forEach(f => f.classList.remove('invalid'));
+  form.querySelectorAll('.field-error').forEach(e => { e.textContent = ''; e.style.display = 'none'; });
+  const charCount = document.getElementById('char-count');
+  if (charCount) { charCount.textContent = '0 / 1000'; charCount.classList.remove('char-near-limit'); }
 }
+
 
 
 /* ================================================================

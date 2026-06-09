@@ -1088,13 +1088,28 @@ body::before {
 }
 .form-group { margin-bottom: 16px; }
 .form-group label {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
   margin-bottom: 8px;
 }
+.required-star { color: #ff6b6b; margin-left: 2px; }
+
+/* Character counter */
+.char-count {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0;
+  text-transform: none;
+  transition: color var(--transition);
+}
+.char-count.char-near-limit { color: #ffc107; }
+
 .form-control {
   width: 100%;
   padding: 12px 16px;
@@ -1112,24 +1127,51 @@ body::before {
   box-shadow: 0 0 0 3px rgba(79, 139, 255, 0.12);
 }
 .form-control::placeholder { color: var(--muted); }
+.form-control.invalid {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.12);
+}
 textarea.form-control {
   resize: vertical;
   min-height: 120px;
 }
 
-.send-btn { padding: 14px 22px; }
+/* Inline field-level error text */
+.field-error {
+  display: none;
+  color: #ff6b6b;
+  font-size: 0.75rem;
+  margin-top: 5px;
+}
+
+.send-btn { padding: 14px 22px; gap: 10px; }
 .send-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none !important;
 }
 
+/* CSS spinner inside the button */
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+.send-btn.loading .btn-spinner { display: inline-block; }
+.send-btn.loading .btn-label   { opacity: 0.8; }
+
 .form-msg {
   text-align: center;
   margin-top: 14px;
   font-size: 0.875rem;
-  padding: 10px 16px;
+  padding: 12px 16px;
   border-radius: 8px;
+  animation: fade-up 0.35s ease both;
 }
 .form-msg.success {
   color: var(--teal);
@@ -1140,11 +1182,6 @@ textarea.form-control {
   color: #ff6b6b;
   background: rgba(255, 107, 107, 0.08);
   border: 1px solid rgba(255, 107, 107, 0.2);
-}
-.form-msg.loading {
-  color: var(--muted);
-  background: var(--surface);
-  border: 1px solid var(--border);
 }
 
 /* ── 19. Footer ──────────────────────────────────────────────── */
