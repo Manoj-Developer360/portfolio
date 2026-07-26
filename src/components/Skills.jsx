@@ -16,11 +16,11 @@ const CATEGORIES = [
   {
     delayClass: 'd2',
     icon: '🌐',
-    title: 'Web Development',
+    title: 'Full Stack Web Development',
     items: [
-      { name: 'HTML / CSS', pct: 90, teal: false },
-      { name: 'JavaScript', pct: 50, teal: true },
-      { name: 'Django (Python)', pct: 70, teal: false },
+      { name: 'HTML / CSS / JS', pct: 90, teal: false },
+      { name: 'React.js', pct: 80, teal: true },
+      { name: 'Django', pct: 70, teal: false },
       { name: 'Python', pct: 65, teal: true },
     ],
   },
@@ -38,8 +38,8 @@ const CATEGORIES = [
 ];
 
 const TECH_BADGES = [
-  '🐍 Python', '📊 Power BI', '🗃 SQL', '📈 Excel', '⚛ HTML/CSS', '💛 JavaScript',
-  '🌍 Django', '🎨 Figma', '🖌 Canva', '📷 Photoshop', '📝 Word', '📋 PowerPoint',
+  '🐍 Python', '📊 Power BI', '🗃 SQL', '📈 Excel', '⚛️ React.js','⚛ HTML/CSS', '💛 JavaScript',
+  '🌍 Django', '🛢️ MySQL','🗂️ SQLite3','🔧 Git & GitHub','🎨 Figma', '🖌 Canva', '📷 Photoshop', '📝 Word', '📋 PowerPoint',
 ];
 
 export default function Skills() {
