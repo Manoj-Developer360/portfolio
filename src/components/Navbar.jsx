@@ -31,7 +31,7 @@ export default function Navbar({ scrolled, activeSection }) {
         <div className="container">
           <div className="nav-inner">
             <a href="#hero" className="nav-logo" aria-label="Manoj Kumar V - Home">
-              <img src="/logo.png" alt="Manoj Kumar V" className="nav-logo-img" />
+              MK
             </a>
 
             <ul className="nav-links">

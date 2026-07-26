@@ -13,12 +13,12 @@ export default function Hero() {
               Manoj<br /><span className="grad">Kumar V</span>
             </h1>
             <p className="hero-role">
-              <span>Data Analyst</span> · UI Web Developer · <span>Python Developer</span>
+              <span>Data Analyst · Full Stack Web Developer </span>
             </p>
             <p className="hero-desc">
-              Detail-oriented CS graduate & Data Analyst skilled in Python, data analysis, dashboards, and workflow
-              automation with
-              experience in Django full-stack web development. Strong leadership & problem-solving mindset.
+              Detail-oriented Computer Science graduate specializing in Data Analysis and Full Stack Web Development. 
+              Passionate about transforming data into meaningful insights and building modern, 
+              scalable web applications with Python, Django, React.js, and SQL.
             </p>
             <div className="hero-btns">
               <a href="#projects" className="btn btn-primary">View Projects →</a>
