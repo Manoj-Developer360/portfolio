@@ -27,6 +27,10 @@ export default function Hero() {
             </div>
             <div className="hero-stats">
               <div className="stat-item">
+                <div className="stat-num">1+</div>
+                <div className="stat-label">Freelance Projects</div>
+              </div>
+              <div className="stat-item">
                 <div className="stat-num">3+</div>
                 <div className="stat-label">Internships</div>
               </div>
@@ -53,12 +57,12 @@ export default function Hero() {
                   B.E Computer Science &amp; Engineering<br />SSM Institute of Technology
                 </p>
                 <div className="card-tags">
-                  <span className="tag accent">Python</span>
                   <span className="tag teal">Data Analysis</span>
-                  <span className="tag purple">Django</span>
-                  <span className="tag accent">HTML/CSS</span>
                   <span className="tag teal">Power BI</span>
-                  <span className="tag">Figma</span>
+                  <span className="tag accent">React.js</span>
+                  <span className="tag accent">Python</span>
+                  <span className="tag accent">SQL</span>
+                  <span className="tag purple">Django</span>
                 </div>
                 <div style={{ display: 'flex', gap: '10px', marginTop: '4px' }}>
                   <div

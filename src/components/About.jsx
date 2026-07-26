@@ -1,4 +1,4 @@
-import Reveal from './Reveal.jsx';
+import Reveal from "./Reveal.jsx";
 
 export default function About() {
   return (
@@ -8,31 +8,36 @@ export default function About() {
           {/* Left */}
           <Reveal className="reveal-left">
             <p className="section-label">Who I am</p>
-            <h2 className="section-title">About <span className="grad">Me</span></h2>
+            <h2 className="section-title">
+              About <span className="grad">Me</span>
+            </h2>
             <div className="about-text">
               <p>
-                I am a <strong>Computer Science graduate</strong> from SSM Institute of Engineering and Technology (Batch
-                2021–2025)
-                with a CGPA of 7.94.
+                I am a <strong>Computer Science graduate</strong> from SSM
+                Institute of Engineering and Technology (Batch 2021–2025) with a
+                CGPA of 7.94.
               </p>
 
               <p>
-                I am seeking entry-level opportunities in <strong>Data Analytics</strong> and <strong>Python Django Full
-                  Stack
-                  Development</strong>, with skills in data management, UI web development, and project coordination.
+                {" "}
+                I am currently open to <strong>
+                  Full-time Opportunities
+                </strong>{" "}
+                and <strong>Freelance Projects</strong>, delivering efficient,
+                user-focused, and high-quality solutions.{" "}
               </p>
 
               <p>
-                I have experience in building web applications, creating dashboards, handling data, documentation, and
-                workflow
-                management,
-                supported by <strong>strong leadership</strong> as President of the CSE Department.
+                I have experience in building web applications, creating
+                dashboards, handling data, documentation, and workflow
+                management, supported by <strong>strong leadership</strong> as
+                President of the CSE Department.
               </p>
 
               <p>
-                Outside of tech, I am a <strong>National-Level Silambam player</strong>, having represented at State &
-                National
-                Championships.
+                Outside of tech, I am a{" "}
+                <strong>National-Level Silambam player</strong>, having
+                represented at State & National Championships.
               </p>
             </div>
             <div className="about-highlights">
@@ -70,7 +75,9 @@ export default function About() {
               </div>
               <div className="about-info-row">
                 <span className="label">Role</span>
-                <span className="value">Data Analyst / Python Django Web Developer</span>
+                <span className="value">
+                  Data Analyst • Full Stack Web Developer
+                </span>
               </div>
               <div className="about-info-row">
                 <span className="label">Education</span>
@@ -86,17 +93,21 @@ export default function About() {
               </div>
               <div className="about-info-row">
                 <span className="label">Email</span>
-                <span className="value" style={{ wordBreak: 'break-all' }}>kumarvmanoj329@gmail.com</span>
+                <span className="value" style={{ wordBreak: "break-all" }}>
+                  kumarvmanoj329@gmail.com
+                </span>
               </div>
               <div className="about-info-row">
                 <span className="label">Status</span>
-                <span className="value" style={{ color: 'var(--teal)' }}>✅ Open to Work</span>
+                <span className="value" style={{ color: "var(--teal)" }}>
+                  ✅ Open to Work
+                </span>
               </div>
-              <div style={{ marginTop: '24px' }}>
+              <div style={{ marginTop: "24px" }}>
                 <a
                   href="https://drive.google.com/file/d/1mIGDtYbhPn0zhT2UwwmOZ4gSu9s79hMR/view?usp=sharing"
                   className="btn btn-primary"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  style={{ width: "100%", justifyContent: "center" }}
                 >
                   ⬇ Download Resume
                 </a>
