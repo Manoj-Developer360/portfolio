@@ -48,12 +48,12 @@ export default function Navbar({ scrolled, activeSection }) {
             </ul>
 
             <div className="nav-cta">
-              <a
+              {/* <a
                 href="https://drive.google.com/file/d/1mIGDtYbhPn0zhT2UwwmOZ4gSu9s79hMR/view?usp=sharing"
                 className="btn btn-primary"
               >
                 ⬇ Resume
-              </a>
+              </a> */}
               <button
                 className={`hamburger${menuOpen ? ' open' : ''}`}
                 id="hamburger"
