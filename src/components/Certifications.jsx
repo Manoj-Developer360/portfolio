@@ -16,13 +16,14 @@ const CERTS = [
     icon: '🌐',
     images: [{ src: 'certificates/web.jpg', alt: 'Web Technology Certification Certificate' }],
   },
-  {
-    delayClass: 'd3',
-    title: 'National Level Symposium',
-    org: 'Participant',
-    icon: '🎤',
-    images: [{ src: 'certificates/symposium.jpg', alt: 'National Level Symposium Certificate' }],
-  },
+  // {
+  //   delayClass: 'd3',
+  //   title: 'National Level Symposium',
+  //   org: 'Participant',
+  //   icon: '🎤',
+  //   images: [
+  //     { src: 'certificates/symposium.jpg', alt: 'National Level Symposium Certificate' }],
+  // },
   {
     delayClass: 'd1',
     title: 'National-Level Silambam',
@@ -34,14 +35,7 @@ const CERTS = [
       { src: 'certificates/silambam3.jpg', alt: 'National-Level Silambam Certificate' },
       { src: 'certificates/silambam4.jpg', alt: 'National-Level Silambam Certificate' },
     ],
-  },
-  {
-    delayClass: 'd2',
-    title: 'President – CSE Department',
-    org: 'SSM Institute of Engineering & Technology',
-    icon: '👑',
-    images: [{ src: 'certificates/president.jpg', alt: 'President CSE Department Certificate' }],
-  },
+  }
 ];
 
 function CertCard({ cert }) {
