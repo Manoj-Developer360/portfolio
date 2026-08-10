@@ -16,7 +16,7 @@ const PROJECTS = [
       { cls: "", label: "Vercel" },
     ],
     type: "Freelance Frontend Project",
-    link: "https://github.com/Manoj-Developer360/ssvhs.git",
+    link: "https://ssvphs.vercel.app/",
   },
 
   {
@@ -32,7 +32,7 @@ const PROJECTS = [
       { cls: "", label: "JavaScript" },
     ],
     type: "Django Full Stack Project",
-    link: "https://github.com/Manoj-Developer360/tms_project",
+    link: "https://srivari-booking.onrender.com/",
   },
   {
     delayClass: "d1",
@@ -46,7 +46,7 @@ const PROJECTS = [
       { cls: "", label: "HTML/CSS" },
     ],
     type: "Full Stack Project",
-    link: "https://github.com/dhiyanesh-cyber/feedback_system.git",
+    link: "https://feedback.ssmiet.ac.in/",
   },
   // {
   //   delayClass: 'd2',
@@ -123,7 +123,7 @@ function ProjectCard({ project }) {
           rel="noreferrer"
           className="proj-link"
         >
-          GitHub ↗
+          View Live ↗
         </a>
       </div>
     </Reveal>
